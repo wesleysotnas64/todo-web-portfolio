@@ -1,0 +1,37 @@
+import { useEffect, useState } from "react";
+import { MainContainer } from "./Item.style";
+import trashIcon from "../../assets/trash-icon.svg";
+// import checkIcon from "../../assets/check-icon.svg";
+// import uncheckIcon from "../../assets/uncheck-icon.svg";
+
+function Item({ title, description }) {
+    const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
+
+    useEffect(() => {
+        const handleOrientationChange = () => {
+            setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+        };
+
+        // Adiciona o listener
+        window.addEventListener('resize', handleOrientationChange);
+
+        // Remove o listener quando desmontar
+        return () => {
+            window.removeEventListener('resize', handleOrientationChange);
+        };
+    }, []);
+
+    return (
+        <MainContainer>
+            <label id="title">{title}</label>
+            {!isPortrait && <label id="description">{description}</label>}
+
+            <div className="buttons-area">
+                {/* <button><img src={uncheckIcon} /></button> */}
+                <button><img src={trashIcon} /></button>
+            </div>
+        </MainContainer>
+    );
+}
+
+export default Item;

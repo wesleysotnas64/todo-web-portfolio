@@ -1,0 +1,44 @@
+import { useEffect, useState } from "react";
+import Item from "../item/Item"
+
+import { MainContainer, NewItemButton } from "./TodoContent.style";
+import { getAllTodos } from "../../services/todoServices";
+
+function TodoContent(){
+
+    const [todos, setTodos] = useState([])
+
+    useEffect(() => {
+        async function fetchTodos() {
+            try{
+                const data = await getAllTodos();
+                setTodos(data)
+            } catch(error) {
+                console.error("Erro ao carregar os itens.");
+            }
+        }
+
+        fetchTodos();
+    }, []);
+
+    return(
+        <MainContainer>
+            <NewItemButton>
+                Add new item
+            </NewItemButton>
+            
+            {
+                todos.map((todo) => (
+                    <Item
+                        key={todo.id}
+                        title={todo.title}
+                        description={todo.description}
+                    />
+                ))
+            }
+            
+        </MainContainer>
+    )
+}
+
+export default TodoContent;
