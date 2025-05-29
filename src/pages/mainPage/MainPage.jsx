@@ -6,7 +6,7 @@ import { useState } from "react";
 import Modal from "../../components/modal/Modal";
 
 function MainPage(){
-    const [activeModal, setActiveModal] = useState(true);
+    const [activeModal, setActiveModal] = useState(false);
 
     const handleActiveModal = (active) => {
         setActiveModal(active);

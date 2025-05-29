@@ -50,7 +50,9 @@ export const MainContainer = styled.div`
     }
     
     .info-area {
+        height: 100%;
         display: flex;
+        align-items: center;
         flex-grow: 1;
         gap: 20px;
         
@@ -65,5 +67,10 @@ export const MainContainer = styled.div`
         display: flex;
         gap: 5px;
         margin-left: 10px;
+
+        #btn-isCompleted {
+            background: ${({isCompleted}) => isCompleted ? "#0c9e20" : "#ffbf10"};
+        }
     }
+    
 `;

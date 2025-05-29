@@ -3,10 +3,26 @@ import Item from "../item/Item"
 
 import { MainContainer, NewItemButton } from "./TodoContent.style";
 import { getAllTodos } from "../../services/todoServices";
+import { useDispatch } from "react-redux";
+import TodoActionTypes from "../../redux/todo/action-types";
 
 function TodoContent({handleActiveModal}){
 
     const [todos, setTodos] = useState([])
+
+    const dispatch = useDispatch();
+    const handleNewitem = () => {
+        dispatch({
+            type: TodoActionTypes.SET_CURRENT,
+            payload: {
+                id: "",
+                title: "",
+                description: "",
+                isCompleted: false
+            }
+        })
+        handleActiveModal(true)
+    }
 
     useEffect(() => {
         async function fetchTodos() {
@@ -23,7 +39,7 @@ function TodoContent({handleActiveModal}){
 
     return(
         <MainContainer>
-            <NewItemButton onClick={() => {handleActiveModal(true)}}>
+            <NewItemButton onClick={() => {handleNewitem()}}>
                 Add new item
             </NewItemButton>
             
@@ -34,6 +50,7 @@ function TodoContent({handleActiveModal}){
                         id={todo.id}
                         title={todo.title}
                         description={todo.description}
+                        isCompleted={todo.isCompleted}
                         handleActiveModal={handleActiveModal}
                     />
                 ))
