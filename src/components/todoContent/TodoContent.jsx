@@ -4,7 +4,7 @@ import Item from "../item/Item"
 import { MainContainer, NewItemButton } from "./TodoContent.style";
 import { getAllTodos } from "../../services/todoServices";
 
-function TodoContent(){
+function TodoContent({handleActiveModal}){
 
     const [todos, setTodos] = useState([])
 
@@ -33,6 +33,7 @@ function TodoContent(){
                         key={todo.id}
                         title={todo.title}
                         description={todo.description}
+                        handleActiveModal={handleActiveModal}
                     />
                 ))
             }
