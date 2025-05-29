@@ -23,7 +23,7 @@ function TodoContent({handleActiveModal}){
 
     return(
         <MainContainer>
-            <NewItemButton>
+            <NewItemButton onClick={() => {handleActiveModal(true)}}>
                 Add new item
             </NewItemButton>
             
@@ -31,6 +31,7 @@ function TodoContent({handleActiveModal}){
                 todos.map((todo) => (
                     <Item
                         key={todo.id}
+                        id={todo.id}
                         title={todo.title}
                         description={todo.description}
                         handleActiveModal={handleActiveModal}

@@ -4,7 +4,7 @@ import trashIcon from "../../assets/trash-icon.svg";
 // import checkIcon from "../../assets/check-icon.svg";
 // import uncheckIcon from "../../assets/uncheck-icon.svg";
 
-function Item({ title, description, handleActiveModal }) {
+function Item({ id, title, description, handleActiveModal }) {
     const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
 
     useEffect(() => {
