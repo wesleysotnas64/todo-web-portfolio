@@ -1,14 +1,57 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ButtonsArea, LabelInputArea, MainContainer, MainContent } from "./Modal.style";
+import { createTodo } from "../../services/todoServices";
 
 function Modal({handleActiveModal}) {
 
-    const [updated, setUpdated] = useState(true);
+    const [updated, setUpdated] = useState(false);
     const [isNewItem, setIsNewItem] = useState(false);
 
     const {currentTodo} = useSelector((rootReducer) => rootReducer.todoReducer);
+    const [todoItem, setTodoItem] = useState(currentTodo);
+
+    const handleChangeTitle = (e) => {
+        setTodoItem({
+            ...todoItem,
+            title: e.target.value
+        })
+    };
     
+    const handleChangeDescription = (e) => {
+        setTodoItem({
+            ...todoItem,
+            description: e.target.value
+        })
+    }
+
+    const handleUpdatedItem = () => {
+        if(
+            currentTodo.title !== todoItem.title ||
+            currentTodo.description !== todoItem.description ||
+            currentTodo.isCompleted !== todoItem.isCompleted
+        ){
+            setUpdated(true)
+        } else setUpdated(false)
+    }
+
+    const handleCreateTodo = () => {
+        createTodo({
+            title: todoItem.title,
+            description: todoItem.description
+        }).then(response => {
+            console.log("Todo salvo com sucesso: ", response)
+        }).catch(error => {
+            console.error("Erro ao criar item: ", error)
+        })
+        handleActiveModal(false);
+    }
+    
+    useEffect(() => {
+        handleUpdatedItem()
+    }, [todoItem, currentTodo]);
+
+
     useEffect(() => {
         if (currentTodo.id === null || currentTodo.id === "") {
             setIsNewItem(true);
@@ -16,6 +59,7 @@ function Modal({handleActiveModal}) {
             setIsNewItem(false);
         }
         setUpdated(false);
+        handleUpdatedItem()
     }, []);
 
     return(
@@ -25,12 +69,12 @@ function Modal({handleActiveModal}) {
 
                 <LabelInputArea>
                     <label>Title</label>
-                    <input placeholder="Todo title..." value={currentTodo.title}/>
+                    <input placeholder="Todo title..." value={todoItem.title} onChange={handleChangeTitle}/>
                 </LabelInputArea>
 
                 <LabelInputArea>
                     <label>Description</label>
-                    <input placeholder="Todo description..." value={currentTodo.description}/>
+                    <input placeholder="Todo description..." value={todoItem.description} onChange={handleChangeDescription}/>
                 </LabelInputArea>
 
                 <ButtonsArea updated={updated}>
@@ -43,7 +87,7 @@ function Modal({handleActiveModal}) {
                         )
                     }
                     
-                    {isNewItem && (<button id="update">Save</button>)}
+                    {isNewItem && (<button id="update" onClick={()=>{handleCreateTodo()}}>Create</button>)}
                     
                     <button id="close" onClick={() => handleActiveModal(false)} >Close</button>
                 </ButtonsArea>
