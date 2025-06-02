@@ -5,6 +5,7 @@ import { MainContainer, NewItemButton } from "./TodoContent.style";
 import { getAllTodos } from "../../services/todoServices";
 import { useDispatch } from "react-redux";
 import { setCurrentAction } from "../../redux/todo/actions";
+import { setLoadingAction } from "../../redux/loading/actions";
 
 function TodoContent({handleActiveModal}){
 
@@ -22,8 +23,13 @@ function TodoContent({handleActiveModal}){
     }
 
     useEffect(() => {
+        dispatch(setLoadingAction(false))
+    }, [todos])
+
+    useEffect(() => {
         async function fetchTodos() {
             try{
+                dispatch(setLoadingAction(true))
                 const data = await getAllTodos();
                 setTodos(data)
             } catch(error) {

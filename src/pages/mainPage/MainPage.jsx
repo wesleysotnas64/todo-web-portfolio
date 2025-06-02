@@ -4,9 +4,12 @@ import { MainContainer } from "./MainPage.style"
 import TodoContent from "../../components/todoContent/TodoContent";
 import { useState } from "react";
 import Modal from "../../components/modal/Modal";
+import Loading from "../../components/loading/Loading";
+import { useSelector } from "react-redux";
 
 function MainPage(){
     const [activeModal, setActiveModal] = useState(false);
+    const { loading } = useSelector((rootReducer) => rootReducer.loadingReducer)
 
     const handleActiveModal = (active) => {
         setActiveModal(active);
@@ -20,6 +23,10 @@ function MainPage(){
 
             {
                 activeModal && (<Modal handleActiveModal={handleActiveModal}/>)
+            }
+
+            {
+                loading && (<Loading />)
             }
         </MainContainer>
     )
