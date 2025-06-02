@@ -4,7 +4,7 @@ import Item from "../item/Item"
 import { MainContainer, NewItemButton } from "./TodoContent.style";
 import { getAllTodos } from "../../services/todoServices";
 import { useDispatch } from "react-redux";
-import TodoActionTypes from "../../redux/todo/action-types";
+import { setCurrentAction } from "../../redux/todo/actions";
 
 function TodoContent({handleActiveModal}){
 
@@ -12,15 +12,12 @@ function TodoContent({handleActiveModal}){
 
     const dispatch = useDispatch();
     const handleNewitem = () => {
-        dispatch({
-            type: TodoActionTypes.SET_CURRENT,
-            payload: {
-                id: "",
-                title: "",
-                description: "",
-                isCompleted: false
-            }
-        })
+        dispatch(setCurrentAction({
+            id: "",
+            title: "",
+            description: "",
+            isCompleted: false
+        }))
         handleActiveModal(true)
     }
 
