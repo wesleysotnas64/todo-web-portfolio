@@ -1,7 +1,10 @@
 import * as signalR from "@microsoft/signalr";
 
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl(import.meta.env.VITE_HUB_URL)
+    .withUrl(import.meta.env.VITE_HUB_URL, {
+        withCredentials: true,
+        transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling
+    })
     .withAutomaticReconnect()
     .build();
 
