@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, GET_ALL, CREATE, UPDATE } from "../routes/routes";
+import { BASE_URL, GET_ALL, CREATE, UPDATE, DELETE } from "../routes/routes";
 
 export async function createTodo(todo) {
     try {
@@ -37,5 +37,15 @@ export async function updateTodo(todo) {
     } catch(error) {
         console.error("Erro ao atualizar item", error)
         throw error
+    }
+}
+
+export async function deleteTodo(todoId) {
+    try{
+        const response = await axios.delete(`${BASE_URL}/${DELETE}/${todoId}`);
+        return response.data;
+    } catch(error){
+        console.error("Erro ao deletar item: ", error);
+        throw error;
     }
 }

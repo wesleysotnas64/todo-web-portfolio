@@ -34,3 +34,16 @@ export const NewItemButton = styled.button`
     }
 `;
 
+export const NoItemMessage = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 70%;
+
+    color: #ffffff;
+    font-family: "Roboto", sans-serif;
+    font-size: 16pt;
+    font-weight: 300;
+`;
+

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ButtonsArea, LabelInputArea, MainContainer, MainContent } from "./Modal.style";
-import { createTodo, updateTodo } from "../../services/todoServices";
+import { createTodo, updateTodo, deleteTodo } from "../../services/todoServices";
 
-function Modal({handleActiveModal}) {
+function Modal({handleActiveModal, handleGetAllTodos}) {
 
     const [updated, setUpdated] = useState(false);
     const [isNewItem, setIsNewItem] = useState(false);
@@ -41,10 +41,13 @@ function Modal({handleActiveModal}) {
             description: todoItem.description
         }).then(response => {
             console.log("Todo salvo com sucesso: ", response)
+            handleGetAllTodos()
+            handleActiveModal(false);
         }).catch(error => {
             console.error("Erro ao criar item: ", error)
+            handleGetAllTodos()
+            handleActiveModal(false);
         })
-        handleActiveModal(false);
     }
     
     const handleUpdateTodo = () => {
@@ -55,10 +58,23 @@ function Modal({handleActiveModal}) {
             isCompleted: todoItem.isCompleted
         }).then(response => {
             console.log("Todo atualizado com sucesso: ", response)
+            handleActiveModal(false);
         }).catch(error => {
             console.error("Erro ao atualizar item: ", error)
+            handleActiveModal(false);
         })
-        handleActiveModal(false);
+    }
+
+    const handleDeleteTodo = (todoId) => {
+        deleteTodo(todoId).then(response => {
+            console.log("Item deletado com sucesso: ", response)
+            handleGetAllTodos()
+            handleActiveModal(false);
+        }).catch(error => {
+            console.error("Erro ao deletar item: ", error)
+            handleGetAllTodos()
+            handleActiveModal(false);
+        });
     }
     
     useEffect(() => {
@@ -95,7 +111,7 @@ function Modal({handleActiveModal}) {
                     {
                         !isNewItem && (
                             <>
-                                <button id="delete">Delete</button>
+                                <button id="delete" onClick={()=>{handleDeleteTodo(currentTodo.id)}}>Delete</button>
                                 <button id="update" onClick={()=>{handleUpdateTodo()}}>Update</button>
                             </>
                         )

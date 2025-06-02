@@ -6,8 +6,9 @@ import TodoActionTypes from "../../redux/todo/action-types";
 import trashIcon from "../../assets/trash-icon.svg";
 import checkIcon from "../../assets/check-icon.svg";
 import uncheckIcon from "../../assets/uncheck-icon.svg";
+import { deleteTodo } from "../../services/todoServices";
 
-function Item({ id, title, description, isCompleted, handleActiveModal }) {
+function Item({ id, title, description, isCompleted, handleActiveModal, handleGetAllTodos }) {
     const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
 
     const dispatch = useDispatch()
@@ -22,6 +23,15 @@ function Item({ id, title, description, isCompleted, handleActiveModal }) {
             },
         });
         handleActiveModal(true);
+    }
+
+    const handleDeleteTodo = (todoId) => {
+        deleteTodo(todoId).then(response => {
+            console.log("Item deletado com sucesso: ", response)
+            handleGetAllTodos()
+        }).catch(error => {
+            console.error("Erro ao deletar item: ", error)
+        });
     }
 
     useEffect(() => {
@@ -47,7 +57,7 @@ function Item({ id, title, description, isCompleted, handleActiveModal }) {
 
             <div className="buttons-area">
                 <button id="btn-isCompleted"><img src={isCompleted ? checkIcon : uncheckIcon} /></button>
-                <button><img src={trashIcon} /></button>
+                <button onClick={()=>{handleDeleteTodo(id)}}><img src={trashIcon} /></button>
             </div>
         </MainContainer>
     );

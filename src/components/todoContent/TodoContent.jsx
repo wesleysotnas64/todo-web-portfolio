@@ -1,17 +1,13 @@
-import { useEffect, useState } from "react";
 import Item from "../item/Item"
 
-import { MainContainer, NewItemButton } from "./TodoContent.style";
-import { getAllTodos } from "../../services/todoServices";
-import { useDispatch } from "react-redux";
+import { MainContainer, NewItemButton, NoItemMessage } from "./TodoContent.style";
 import { setCurrentAction } from "../../redux/todo/actions";
-import { setLoadingAction } from "../../redux/loading/actions";
+import { useDispatch } from "react-redux";
 
-function TodoContent({handleActiveModal}){
+function TodoContent({todos, handleActiveModal, handleGetAllTodos}){
 
-    const [todos, setTodos] = useState([])
+    const dispatch = useDispatch()
 
-    const dispatch = useDispatch();
     const handleNewitem = () => {
         dispatch(setCurrentAction({
             id: "",
@@ -20,25 +16,8 @@ function TodoContent({handleActiveModal}){
             isCompleted: false
         }))
         handleActiveModal(true)
+        console.log("Apertou")
     }
-
-    useEffect(() => {
-        dispatch(setLoadingAction(false))
-    }, [todos])
-
-    useEffect(() => {
-        async function fetchTodos() {
-            try{
-                dispatch(setLoadingAction(true))
-                const data = await getAllTodos();
-                setTodos(data)
-            } catch(error) {
-                console.error("Erro ao carregar os itens.");
-            }
-        }
-
-        fetchTodos();
-    }, []);
 
     return(
         <MainContainer>
@@ -47,6 +26,11 @@ function TodoContent({handleActiveModal}){
             </NewItemButton>
             
             {
+                todos.length === 0 ? (
+                    <NoItemMessage>
+                        <label>No items in the list.</label>
+                    </NoItemMessage>
+                ):
                 todos.map((todo) => (
                     <Item
                         key={todo.id}
@@ -55,6 +39,7 @@ function TodoContent({handleActiveModal}){
                         description={todo.description}
                         isCompleted={todo.isCompleted}
                         handleActiveModal={handleActiveModal}
+                        handleGetAllTodos={handleGetAllTodos}
                     />
                 ))
             }
