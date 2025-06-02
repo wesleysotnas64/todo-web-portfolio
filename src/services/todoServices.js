@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, GET_ALL, CREATE } from "../routes/routes";
+import { BASE_URL, GET_ALL, CREATE, UPDATE } from "../routes/routes";
 
 export async function createTodo(todo) {
     try {
@@ -22,5 +22,20 @@ export async function getAllTodos() {
     } catch(error) {
         console.error("Erro ao buscar os itens: ", error);
         throw error;
+    }
+}
+
+export async function updateTodo(todo) {
+    try {
+        const response = await axios.put(`${BASE_URL}/${UPDATE}`, {
+            id: todo.id,
+            title: todo.title,
+            description: todo.description,
+            isCompleted: todo.isCompleted
+        })
+        return response.data;
+    } catch(error) {
+        console.error("Erro ao atualizar item", error)
+        throw error
     }
 }

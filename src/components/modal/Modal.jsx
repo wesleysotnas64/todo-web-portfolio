@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ButtonsArea, LabelInputArea, MainContainer, MainContent } from "./Modal.style";
-import { createTodo } from "../../services/todoServices";
+import { createTodo, updateTodo } from "../../services/todoServices";
 
 function Modal({handleActiveModal}) {
 
@@ -47,6 +47,20 @@ function Modal({handleActiveModal}) {
         handleActiveModal(false);
     }
     
+    const handleUpdateTodo = () => {
+        updateTodo({
+            id: todoItem.id,
+            title: todoItem.title,
+            description: todoItem.description,
+            isCompleted: todoItem.isCompleted
+        }).then(response => {
+            console.log("Todo atualizado com sucesso: ", response)
+        }).catch(error => {
+            console.error("Erro ao atualizar item: ", error)
+        })
+        handleActiveModal(false);
+    }
+    
     useEffect(() => {
         handleUpdatedItem()
     }, [todoItem, currentTodo]);
@@ -82,7 +96,7 @@ function Modal({handleActiveModal}) {
                         !isNewItem && (
                             <>
                                 <button id="delete">Delete</button>
-                                <button id="update">Update</button>
+                                <button id="update" onClick={()=>{handleUpdateTodo()}}>Update</button>
                             </>
                         )
                     }
