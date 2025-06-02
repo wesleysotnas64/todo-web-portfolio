@@ -58,9 +58,11 @@ function Modal({handleActiveModal, handleGetAllTodos}) {
             isCompleted: todoItem.isCompleted
         }).then(response => {
             console.log("Todo atualizado com sucesso: ", response)
+            handleGetAllTodos()
             handleActiveModal(false);
         }).catch(error => {
             console.error("Erro ao atualizar item: ", error)
+            handleGetAllTodos()
             handleActiveModal(false);
         })
     }
