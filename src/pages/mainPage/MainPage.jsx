@@ -36,14 +36,14 @@ function MainPage(){
 
     useEffect(() => {
         handleGetAllTodos();
-        connection.on("TodoUpdated", () => {
-            console.log("Recebido evento de atualização");
-            handleGetAllTodos();
-        });
+        // connection.on("TodoUpdated", () => {
+        //     console.log("Recebido evento de atualização");
+        //     handleGetAllTodos();
+        // });
 
-        return () => {
-            connection.off("TodoUpdated");
-        };
+        // return () => {
+        //     connection.off("TodoUpdated");
+        // };
     }, []);
 
     return(
