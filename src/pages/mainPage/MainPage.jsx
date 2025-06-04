@@ -8,7 +8,6 @@ import Loading from "../../components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoadingAction } from "../../redux/loading/actions";
 import { getAllTodos } from "../../services/todoServices";
-import connection from "../../connection/hub";
 
 function MainPage(){
     const [activeModal, setActiveModal] = useState(false);
@@ -36,14 +35,6 @@ function MainPage(){
 
     useEffect(() => {
         handleGetAllTodos();
-        // connection.on("TodoUpdated", () => {
-        //     console.log("Recebido evento de atualização");
-        //     handleGetAllTodos();
-        // });
-
-        // return () => {
-        //     connection.off("TodoUpdated");
-        // };
     }, []);
 
     return(
