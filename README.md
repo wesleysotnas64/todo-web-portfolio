@@ -1,12 +1,42 @@
-# React + Vite
+# ✅ TODO List
+Projeto full-stack simples com objetivo de gerenciar tarefas de forma prática e organizada. A aplicação integra uma Web API desenvolvida em C# com Entity Framework e um frontend moderno em React, resultando em uma experiência fluida para o usuário.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## 📷 Demonstração
+![image](https://github.com/user-attachments/assets/99440c07-a3d0-4f3f-b69a-6654e441aff6)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Como rodar este projeto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ✅ Acessar online  
+A aplicação está disponível em:  
+🔗 [https://my-todo-portfolio.netlify.app/](https://my-todo-portfolio.netlify.app/)
+
+> ℹ️ **Nota:** Todos os serviços utilizados neste projeto (Render, Netlify, Neon) são gratuitos. Por isso, é possível que ocorram atrasos no carregamento, especialmente ao acessar o backend pela primeira vez (inicialização a frio).
+
+---
+
+## 🧪 Tecnologias utilizadas
+- Front-end
+  - React
+  - Vite
+  - Styled-Components
+  - Netlify (Hospedagem)
+- Back=end
+  - C#
+  - ASP.NET Core Web API
+  - Entity Framework Core
+  - Docker
+  - Render (Hospedagem)
+- Bando de Dados
+  - PostgreSQL (Neon)
+ 
+---
+
+## 🙏 Agradecimento
+Obrigado por visitar este repositório!
+Acesse meu portfólio completo para conhecer outros projetos:
+
+🔗 [wesleysantos.portfolio](https://wesley-santos-dev-portfolio.netlify.app/)
