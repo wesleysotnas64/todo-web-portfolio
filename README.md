@@ -24,7 +24,7 @@ A aplicação está disponível em:
   - Vite
   - Styled-Components
   - Netlify (Hospedagem)
-- Back=end
+- Back-end ([Link do repositório](https://github.com/wesleysotnas64/TodoAPI-Portfolio))
   - C#
   - ASP.NET Core Web API
   - Entity Framework Core
